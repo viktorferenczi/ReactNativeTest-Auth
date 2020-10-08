@@ -2,13 +2,12 @@ import React, {useEffect, useState} from 'react';
 import {ActivityIndicator, SafeAreaView, StyleSheet, Text, View, Button} from 'react-native';
 import {StatusBar} from 'expo-status-bar';
 import { AsyncStorage } from 'react-native';
-import {AuthContext} from "../components/context";
 
 
-export const HomeScreen = ({ navigation, authContext }) => {
+export const HomeScreen = ({ navigation }) => {
 
     const [isLoading,setIsLoading] = useState(true);
-    const authenticated =  !AsyncStorage.getItem('@app:session');
+    const authenticated = !AsyncStorage.getItem('@app:session');
 
     // loading test
     useEffect(()=> {
@@ -26,19 +25,23 @@ export const HomeScreen = ({ navigation, authContext }) => {
         );
     }
 
+
     return (
-        <SafeAreaView style={styles.container}>
-            <StatusBar style="dark" />
-            <Text>test</Text>
-            {
-                authenticated ? <Button title="View Profile" onPress={ () => navigation.navigate('Profile')}/>
-            :
-                <View>
-                    <Button title="Register" onPress={ () => navigation.navigate('Register')}/>
-                    <Button title="Login" onPress={ () => navigation.navigate('Login')}/>
-                </View>
-            }
-        </SafeAreaView>
+            <SafeAreaView style={styles.container}>
+                <StatusBar style="dark" />
+                <Text>test</Text>
+                {
+                    authenticated ?
+                        <View>
+                            <Button title="View Profile" onPress={ () => navigation.navigate('Profile')}/>
+                        </View>
+                :
+                        <View>
+                            <Button title="Register" onPress={ () => navigation.navigate('Register')}/>
+                            <Button title="Login" onPress={ () => navigation.navigate('Login')}/>
+                        </View>
+                }
+            </SafeAreaView>
     );
 }
 

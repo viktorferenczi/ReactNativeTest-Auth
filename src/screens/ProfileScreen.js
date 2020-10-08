@@ -1,17 +1,32 @@
 import React, {useEffect, useState} from 'react';
 import {ActivityIndicator, SafeAreaView, StyleSheet, Text, View, Button} from 'react-native';
 import {StatusBar} from 'expo-status-bar';
+import { AsyncStorage } from 'react-native';
+
 
 export const ProfileScreen = ({ navigation }) => {
 
     const [isLoading,setIsLoading] = useState(true);
+    const [userDetails, setUserDetails] = useState({});
+
+
+    function handleSignOut() {
+        AsyncStorage.removeItem('@app:session'); //delete token
+    }
 
     // loading test
     useEffect(()=> {
-        setTimeout(() => { // request here
+
+        setTimeout(() => { // request here to get user details from the server
             setIsLoading(false);
         },2000);
+
+        const user = AsyncStorage.getItem('user');
+        const userJSON = JSON.parse(user);
+
+        setUserDetails(userJSON);
     }, []);
+
 
     if(isLoading) {
         return (
@@ -23,18 +38,9 @@ export const ProfileScreen = ({ navigation }) => {
     }
 
     return (
-        <SafeAreaView style={styles.container}>
-            <StatusBar style="dark" />
-            <Text>test profile</Text>
-        </SafeAreaView>
+            <SafeAreaView>
+                <StatusBar style="dark" />
+                <Text>Your Email: {userDetails.email}</Text>
+            </SafeAreaView>
     );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-});

@@ -11,6 +11,7 @@ import {ProfileScreen} from "../screens/ProfileScreen";
 import {LoginScreen} from "../screens/LoginScreen";
 
 
+
 const Stack = createStackNavigator();
 
 
@@ -40,7 +41,7 @@ export default function Navigator() {
                     <Stack.Screen
                         name="Profile"
                         component={ProfileScreen}
-                        options={{ title: 'View Profile' }}
+                        options={{ title: 'Your Profile' }}
                     />
 
                 </Stack.Navigator>
